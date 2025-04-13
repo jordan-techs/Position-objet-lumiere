@@ -1,0 +1,40 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL; 
+USE IEEE.STD_LOGIC_UNSIGNED.ALL; 
+ENTITY captimage IS 
+  port ( 
+        clock : in std_logic; 
+		  reset : in std_logic;
+        Datain : in std_logic_vector(23 downto 0);  
+        Dataout : out std_logic_vector(23 downto 0);  
+       );  
+   end captimage;
+	
+architecture behavioral of captimage is 
+  signal internal_data : std_logic_vector(23 downto 0); 
+  
+begin
+    process(clk, reset)
+    
+    begin
+       if reset = '1' then
+          internal_data <= '0';
+			 
+       elsif rising_edge(clk) then 
+		    internal_data <= Datain;
+          Dataout <= internal_data; 
+			
+		 if Datain = '1' then 
+		    internal_data <= "11001100";  
+       end if;
+
+       if some_condition = true then -- Condition pour envoyer des données
+          dataout <= internal_data(0); -- Exemple d'envoi de la première donnée du buffer
+            else
+                dataout <= '0'; -- Si aucune donnée à envoyer
+            end if;
+        end if;
+    end process;
+
+end Behavioral;
+
